@@ -1,5 +1,5 @@
 # UNAL_MOVIL_2021-2
-> Repo for the report of works and workshops proposed in the asginautra development of applications for mobile devices of the master's degree in systems and computing engineering of the national university of colombia
+> En este repositorio se reportaran trabajos y talleres desarrollados individualmente para asignatura Programacion de dispositivos moviles de la maestria en Ingenieria de Sistemas y Computacion de la Universidad Nacional de Colombia en el semestre 2021-2
 
 # [Aplicacion individual](https://github.com/camilonfs1/UNAL_MOVIL_2021-2/tree/main/20212PDDM)
 
