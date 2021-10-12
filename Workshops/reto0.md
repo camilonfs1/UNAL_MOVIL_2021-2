@@ -1,4 +1,4 @@
-# Trabajo 1
+# Reto 0
 
 Se configuró el IDE android studio para realizar un proyecto inicial que presente una pantalla con el mensaje "Hello World ;) 2021 UNAL" : 
 
