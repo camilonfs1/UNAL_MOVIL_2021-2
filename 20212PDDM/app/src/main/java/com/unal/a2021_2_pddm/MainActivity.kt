@@ -1,214 +1,199 @@
 package com.unal.a2021_2_pddm
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
+    var HUMAN_PLAYER = 'X'
+    var COMPUTER_PLAYER = 'O'
 
-    private var infoText : TextView? = null
+    private var boardButtons = arrayOf<Button>()
+    private var toast: Toast? = null
+    private var selected = 0
+    private var endgame = false
 
-    private var button1 : Button? = null
-    private var button2 : Button? = null
-    private var button3 : Button? = null
-    private var button4 : Button? = null
-    private var button5 : Button? = null
-    private var button6 : Button? = null
-    private var button7 : Button? = null
-    private var button8 : Button? = null
-    private var button9 : Button? = null
-
-    private var reset : Button? = null
+    private var difficultyLevel: TextView? = null
+    private var mInfoTextView: TextView? = null
+    private var pcScore: TextView? = null
+    private var human: TextView? = null
+    private var empate: TextView? = null
+    private var mGame: TicTacToeGame = TicTacToeGame()
+    private var GameOver = false
+    private var humanStarts: kotlin.Boolean = false
+    private var humanSc = 0
+    private var androidScore: Int? = 0
+    private var empateScore: Int? = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        boardButtons = arrayOf(
+            findViewById(R.id.one),
+            findViewById(R.id.two),
+            findViewById(R.id.three),
+            findViewById(R.id.four),
+            findViewById(R.id.five),
+            findViewById(R.id.six),
+            findViewById(R.id.seven),
+            findViewById(R.id.eight),
+            findViewById(R.id.nine)
+        )
+        mGame = TicTacToeGame()
+        mGame.TicTacToeGame()
 
-        infoText = findViewById(R.id.information)
-        button1 = findViewById(R.id.one)
-        button2 = findViewById(R.id.two)
-        button3 = findViewById(R.id.three)
-        button4 = findViewById(R.id.four)
-        button5 = findViewById(R.id.five)
-        button6 = findViewById(R.id.six)
-        button7 = findViewById(R.id.seven)
-        button8 = findViewById(R.id.eight)
-        button9 = findViewById(R.id.nine)
+        human = findViewById(R.id.humanScore)
+        pcScore = findViewById(R.id.pcScore)
+        empate = findViewById(R.id.empate)
+        mInfoTextView = findViewById(R.id.information)
+        difficultyLevel= findViewById(R.id.txt_dificulty)
 
-        reset = findViewById(R.id.btn_restart)
 
-        reset!!.setOnClickListener {
-            reset()
-        }
+        human!!.text = humanSc.toString()
+        pcScore!!.text = androidScore.toString()
+        empate!!.text = empateScore.toString()
+
+        humanStarts = true
+        selected = 0
+        startNewGame()
+
     }
 
-    fun buttonsClick(view: View) {
-        val buttonSelected = view as Button //Button selected
-        var cellID = 0
-
-        when (buttonSelected.id) {
-            R.id.one -> cellID = 1
-            R.id.two -> cellID = 2
-            R.id.three -> cellID = 3
-            R.id.four -> cellID = 4
-            R.id.five -> cellID = 5
-            R.id.six -> cellID = 6
-            R.id.seven -> cellID = 7
-            R.id.eight -> cellID = 8
-            R.id.nine -> cellID = 9
-        }
-        playGame(cellID, buttonSelected)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
-    var player1 = ArrayList<Int>()
-    var player2 = ArrayList<Int>()
-
-    var activePlayer = 1
-
-    fun playGame(cellID: Int, buttonSelected: Button) {
-
-        //Selectec player and add player cell selected
-        if (activePlayer == 1) {
-            buttonSelected.text = "X"
-            buttonSelected.setBackgroundColor(Color.BLUE)
-            player1.add(cellID)
-            activePlayer = 2
-            infoText!!.text=" \n MAQUINA"
-            Autoplayer()
-        } else {
-            buttonSelected.text = "O"
-            buttonSelected.setBackgroundColor(Color.GREEN)
-            player2.add(cellID)
-            infoText!!.text=" \n HUMANO"
-            activePlayer = 1
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.new_game -> startNewGame()
+            R.id.ai_difficulty -> dialog()
+            R.id.quit -> Toast.makeText(this, "Quitar Juego", Toast.LENGTH_LONG).show()
         }
-
-        // Block selected button
-        buttonSelected.isEnabled = false
-
-        checkWinner()
+        return super.onOptionsItemSelected(item)
     }
 
-    private fun checkWinner() {
-        var winner = -1
-        //row 1
-        if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
-            winner = 1
-        }
-        if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
-            winner = 2
-        }
-        //row 2
-        if (player1.contains(4) && player1.contains(5) && player1.contains(6)) {
-            winner = 1
-        }
-        if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
-            winner = 2
-        }
-        //row 3
-        if (player1.contains(7) && player1.contains(8) && player1.contains(9)) {
-            winner = 1
-        }
-        if (player2.contains(7) && player2.contains(8) && player2.contains(9)) {
-            winner = 2
-        }
-        //col 1
-        if (player1.contains(1) && player1.contains(4) && player1.contains(7)) {
-            winner = 1
-        }
-        if (player2.contains(1) && player2.contains(4) && player2.contains(7)) {
-            winner = 2
-        }
-        //col 2
-        if (player1.contains(2) && player1.contains(5) && player1.contains(8)) {
-            winner = 1
-        }
-        if (player2.contains(2) && player2.contains(5) && player2.contains(8)) {
-            winner = 2
-        }
-        //col 3
-        if (player1.contains(3) && player1.contains(6) && player1.contains(9)) {
-            winner = 1
-        }
-        if (player2.contains(3) && player2.contains(6) && player2.contains(9)) {
-            winner = 2
-        }
+    fun dialog() {
+        // dialog.show(supportFragmentManager, "customDialog")
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.fragment_custom_dialog, null)
 
-        //Diagonal 1
-        if (player1.contains(7) && player1.contains(5) && player1.contains(3)) {
-            winner = 1
-        }
-        if (player2.contains(7) && player2.contains(5) && player2.contains(3)) {
-            winner = 2
-        }
+        builder.setView(view)
 
-        //Diagonal 2
-        if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
-            winner = 1
-        }
-        if (player2.contains(1) && player2.contains(5) && player2.contains(9)) {
-            winner = 2
-        }
+        // Create dailog
+        val dialog = builder.create()
+        dialog.show()
 
-        var name = ""
-        //Winner
-        if (winner != -1) {
-            if(winner==1) name ="Humano"
-            if(winner==2) name ="MAQUINA"
-            infoText!!.text="Ganador!! \n Jugador ${name}"
-            blockAll()
-        }
-    }
+        //button
+        val cancel = view.findViewById<Button>(R.id.cancel_button)
+        val accept = view.findViewById<Button>(R.id.accept_button)
+        val radioGroup = view.findViewById<RadioGroup>(R.id.radopGroup)
 
-    private  fun Autoplayer(){
-        var emptyCells = ArrayList<Int>()
-        for(cellID in 1..9){
-            if(!(player1.contains(cellID) || player2.contains(cellID))){
-                emptyCells.add(cellID)
+        cancel.setOnClickListener {
+            dialog.hide()
+        }
+        accept.setOnClickListener {
+            val selectedId = radioGroup.checkedRadioButtonId
+            val radioButton = view.findViewById<RadioButton>(selectedId)
+            dialog.hide()
+            Toast.makeText(this, radioButton.text, Toast.LENGTH_LONG).show()
+            when (radioButton.text) {
+                "Facil" -> {
+                    mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy)
+                    startNewGame()
+                }
+                "Medio" -> {
+                    mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder)
+                    startNewGame()
+                }
+                "Dificil" -> {
+                    mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert)
+                    startNewGame()
+                }
             }
         }
+    }
 
-        var r = Random()
-        val randIndex = r.nextInt(emptyCells.size-0)+0
-        val cellID = emptyCells[randIndex]
 
-        val buttonSelected: Button
-        when(cellID){
-            1-> buttonSelected = findViewById(R.id.one)
-            2-> buttonSelected = findViewById(R.id.two)
-            3-> buttonSelected = findViewById(R.id.three)
-            4-> buttonSelected = findViewById(R.id.four)
-            5-> buttonSelected = findViewById(R.id.five)
-            6-> buttonSelected = findViewById(R.id.six)
-            7-> buttonSelected = findViewById(R.id.seven)
-            8-> buttonSelected = findViewById(R.id.eight)
-            9-> buttonSelected = findViewById(R.id.nine)
-            else-> buttonSelected = findViewById(R.id.one)
+    private fun startNewGame() {
+        difficultyLevel!!.text = mGame.getmDifficultyLevel().toString()
+        endgame = false
+        mGame!!.clearBoard()
+        for (i in 0 until boardButtons.size) {
+            boardButtons[i].text = ""
+            boardButtons[i].isEnabled = true
+            boardButtons[i].setOnClickListener { ButtonClickListener(i) }
         }
+        GameOver = false
+        if (humanStarts) {
+            mInfoTextView!!.text = "VAS PRIMERO"
+            humanStarts = !humanStarts
+        } else {
+            mInfoTextView!!.text = "LA MAQUINA PRIMERO."
+            val move = mGame.getComputerMove()
+            setMove(HUMAN_PLAYER, move)
+            humanStarts = !humanStarts
+        }
+    }
 
-        playGame(cellID,buttonSelected)
+    private fun ButtonClickListener(location: Int) {
+        if (boardButtons[location].isEnabled() && !endgame) {
+            setMove(HUMAN_PLAYER, location)
+
+            var winner = mGame!!.checkForWinner()
+            if (winner == 0) {
+                mInfoTextView!!.text = "TURNO DE LA MAQUINA"
+                val move = mGame!!.getComputerMove()
+                setMove(COMPUTER_PLAYER, move)
+                winner = mGame!!.checkForWinner()
+            }
+            if (winner == 0) {
+                mInfoTextView!!.setText("TU TURNO")
+            } else if (winner == 1) {
+                mInfoTextView!!.setText("EMPATE!!!!!")
+                GameOver = true;
+                empateScore = empateScore!!.plus(1)
+                empate!!.setText(empateScore.toString())
+                endgame = true
+            } else if (winner == 2) {
+                mInfoTextView!!.setText("GANASTE!")
+                GameOver = true
+                humanSc = humanSc!!.plus(1)
+                human!!.setText(humanSc.toString())
+                endgame = true;
+            } else {
+                mInfoTextView!!.setText("GANA LA MAQUINA!");
+                GameOver = true
+                androidScore = androidScore!!.plus(1)
+                pcScore!!.setText(androidScore.toString())
+                endgame = true;
+            }
+        }
     }
-    fun reset(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+
+    private fun setMove(player: Char, location: Int) {
+        if (!GameOver) {
+            mGame!!.setMove(HUMAN_PLAYER, location)
+            boardButtons[location].isEnabled = false
+            boardButtons[location].text = player.toString()
+            if (player == HUMAN_PLAYER) boardButtons[location].setTextColor(
+                Color.rgb(
+                    255,
+                    128,
+                    0
+                )
+            ) else boardButtons[location].setTextColor(
+                Color.rgb(0, 0, 255)
+            )
+        }
     }
-    fun blockAll(){
-        button1!!.isEnabled = false
-        button2!!.isEnabled = false
-        button3!!.isEnabled = false
-        button4!!.isEnabled = false
-        button5!!.isEnabled = false
-        button6!!.isEnabled = false
-        button7!!.isEnabled = false
-        button8!!.isEnabled = false
-        button9!!.isEnabled = false
-    }
+
+
 }
 
