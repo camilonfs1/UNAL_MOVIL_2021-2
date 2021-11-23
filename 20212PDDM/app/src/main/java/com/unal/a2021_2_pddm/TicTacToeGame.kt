@@ -1,6 +1,7 @@
 package com.unal.a2021_2_pddm
 
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class TicTacToeGame {
     enum class DifficultyLevel {
@@ -44,6 +45,7 @@ class TicTacToeGame {
     }
 
     fun getComputerMove(): Int {
+
         var move = -1
         if (mDifficultyLevel === DifficultyLevel.Easy) move =
             getRandomMove() else if (mDifficultyLevel === DifficultyLevel.Harder) {

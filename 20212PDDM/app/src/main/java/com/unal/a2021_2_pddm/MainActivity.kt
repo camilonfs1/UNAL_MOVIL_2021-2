@@ -1,12 +1,18 @@
 package com.unal.a2021_2_pddm
 
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.schedule
+import kotlin.concurrent.timerTask
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,10 +36,16 @@ class MainActivity : AppCompatActivity() {
     private var androidScore: Int? = 0
     private var empateScore: Int? = 0
 
-
+    private var mp: MediaPlayer? = null
+    private var mp2: MediaPlayer? = null
+    private var mp3: MediaPlayer? = null
+    private var currentSong = mutableListOf(R.raw.title,R.raw.sound1,R.raw.sound3)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
         boardButtons = arrayOf(
             findViewById(R.id.one),
             findViewById(R.id.two),
@@ -65,6 +77,31 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun controlSound(id:Int, option:Int){
+        if(option==1){
+            if(mp==null){
+                mp = MediaPlayer.create(this,id)
+            }
+            mp?.start()
+        }else if(option==2){
+            if(mp2==null){
+                mp2 = MediaPlayer.create(this,id)
+            }
+            mp2?.start()
+        }else if(option==3){
+            mp?.stop()
+            mp?.reset()
+            mp?.release()
+            mp = null
+            if(mp3==null){
+                mp3 = MediaPlayer.create(this,id)
+            }
+            mp3?.start()
+        }
+    }
+
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -74,7 +111,10 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.new_game -> startNewGame()
             R.id.ai_difficulty -> dialog()
-            R.id.quit -> Toast.makeText(this, "Quitar Juego", Toast.LENGTH_LONG).show()
+            R.id.quit -> {
+                finish();
+                System.exit(0);
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -122,11 +162,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun startNewGame() {
+        controlSound(currentSong[0],1)
         difficultyLevel!!.text = mGame.getmDifficultyLevel().toString()
         endgame = false
         mGame!!.clearBoard()
         for (i in 0 until boardButtons.size) {
             boardButtons[i].text = ""
+            boardButtons[i].setBackgroundResource(R.drawable.navidada)
             boardButtons[i].isEnabled = true
             boardButtons[i].setOnClickListener { ButtonClickListener(i) }
         }
@@ -144,12 +186,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun ButtonClickListener(location: Int) {
         if (boardButtons[location].isEnabled() && !endgame) {
+
             setMove(HUMAN_PLAYER, location)
 
             var winner = mGame!!.checkForWinner()
             if (winner == 0) {
                 mInfoTextView!!.text = "TURNO DE LA MAQUINA"
                 val move = mGame!!.getComputerMove()
+                TimeUnit.SECONDS.sleep(1L)
                 setMove(COMPUTER_PLAYER, move)
                 winner = mGame!!.checkForWinner()
             }
@@ -157,17 +201,20 @@ class MainActivity : AppCompatActivity() {
                 mInfoTextView!!.setText("TU TURNO")
             } else if (winner == 1) {
                 mInfoTextView!!.setText("EMPATE!!!!!")
+                controlSound(currentSong[2],3)
                 GameOver = true;
                 empateScore = empateScore!!.plus(1)
                 empate!!.setText(empateScore.toString())
                 endgame = true
             } else if (winner == 2) {
+                controlSound(currentSong[2],3)
                 mInfoTextView!!.setText("GANASTE!")
                 GameOver = true
                 humanSc = humanSc!!.plus(1)
                 human!!.setText(humanSc.toString())
                 endgame = true;
             } else {
+                controlSound(currentSong[2],3)
                 mInfoTextView!!.setText("GANA LA MAQUINA!");
                 GameOver = true
                 androidScore = androidScore!!.plus(1)
@@ -181,7 +228,17 @@ class MainActivity : AppCompatActivity() {
         if (!GameOver) {
             mGame!!.setMove(HUMAN_PLAYER, location)
             boardButtons[location].isEnabled = false
-            boardButtons[location].text = player.toString()
+            //boardButtons[location].text = player.toString()
+
+            if(player.toString().equals("X")){
+                controlSound(currentSong[1],2)
+                boardButtons[location].setBackgroundResource(R.drawable.navidad1)
+
+            }else{
+
+                controlSound(currentSong[1],2)
+                boardButtons[location].setBackgroundResource(R.drawable.navidad2)
+            }
             if (player == HUMAN_PLAYER) boardButtons[location].setTextColor(
                 Color.rgb(
                     255,
