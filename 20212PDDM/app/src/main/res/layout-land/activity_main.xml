@@ -15,7 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="TIC TAC TOE UNAL \n 2021-2"
+            android:text="TIC TAC TOE UNAL"
             android:textColor="#ffff"
             android:textStyle="bold" />
 
@@ -29,7 +29,10 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <TableLayout
         android:id="@+id/play_grid"
         android:layout_width="fill_parent"
@@ -141,7 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="30dp">
+        android:layout_marginTop="50dp">
 
         <LinearLayout
             android:layout_weight="1"
@@ -169,6 +172,13 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Puntaje Maquina:" />
+
+            <TextView
+                android:textColor="#F50057"
+                android:id="@+id/information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-           >
+            >
 
             <TextView
                 android:id="@+id/humanScore"
@@ -184,6 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:text="HOLA"
                 android:gravity="center_horizontal" />
 
             <TextView
@@ -192,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:text="HOLA"
                 android:gravity="center_horizontal" />
 
             <TextView
@@ -199,16 +211,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="HOLA"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal" />
         </LinearLayout>
 
+
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" />
+
+</LinearLayout>
 
 
 </LinearLayout>

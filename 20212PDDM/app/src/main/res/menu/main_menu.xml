@@ -6,6 +6,9 @@
     <item android:id="@+id/ai_difficulty"
         android:icon="@drawable/ic_baseline_build_24"
         android:title="Dificultad" />
+    <item android:id="@+id/music"
+        android:icon="@drawable/ic_baseline_build_24"
+        android:title="Musica" />
     <item android:id="@+id/quit"
         android:icon="@drawable/ic_baseline_close_24"
         android:title="Salir" />
