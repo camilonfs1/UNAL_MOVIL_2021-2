@@ -1,3 +1,4 @@
+
 package com.unal.a2021_2_pddm
 
 import android.content.SharedPreferences
@@ -282,7 +283,7 @@ class MainActivity : AppCompatActivity() {
                     0
                 )
             ) else boardButtons[location].setTextColor(
-                Color.rgb(0, 0, 255)
+                Color.rgb(255,255,255)
             )
         }
     }
