@@ -23,16 +23,25 @@ class MainActivity : AppCompatActivity() {
 
 
         btnNewGame!!.setOnClickListener {
-
-        }
-        btnJoinGame!!.setOnClickListener {
             val intent = Intent(this, MainGame::class.java)
             intent.putExtra("letter", "X")
+            intent.putExtra("gammer", "1")
             startActivity(intent)
+        }
+        btnJoinGame!!.setOnClickListener {
+            joinGame()
         }
         btnExit!!.setOnClickListener {
             moveTaskToBack(true);
             exitProcess(-1)
         }
+    }
+
+
+    fun joinGame(){
+        val intent = Intent(this, MainGame::class.java)
+        intent.putExtra("letter", "X")
+        intent.putExtra("gammer", "0")
+        startActivity(intent)
     }
 }

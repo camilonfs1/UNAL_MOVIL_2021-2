@@ -1,3 +1,6 @@
+
+
+
 package com.unal.multiplayertictactoe.Game
 
 import android.graphics.Color
@@ -35,21 +38,28 @@ class MainGame : AppCompatActivity() {
     var otherGame = ArrayList<String>()
 
     var back = BackCommunication()
-    val gameMatrix = arrayOf(
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0)
-    )
 
     var ownLetter: String? = null
     var otherLetter: String? = null
+    var gammer: Int? = null
+
+    private var txtOwnPoints: TextView? =null
+    private var txtOtherPoints: TextView? =null
+    private var txtTiePoints: TextView? =null
+    private var txtGammer: TextView? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_game)
 
         ownLetter = intent.getStringExtra("letter")
+        gammer = Integer.parseInt(intent.getStringExtra("gammer").toString())
         otherLetter = "O"
+
+        txtOwnPoints = findViewById(R.id.txt_own_points)
+        txtOtherPoints = findViewById(R.id.txt_other_points)
+        txtTiePoints = findViewById(R.id.txt_tie_points)
+        txtGammer = findViewById(R.id.txt_player)
 
         btn_11 = findViewById(R.id.btn11)
         btn_21 = findViewById(R.id.btn21)
@@ -72,19 +82,20 @@ class MainGame : AppCompatActivity() {
         txt_23 = findViewById(R.id.txt23)
         txt_33 = findViewById(R.id.txt33)
         block(false)
-        startGame(0)
+        startGame(gammer!!)
 
     }
 
     fun startGame(gamer: Int) {
         if(gamer==1){
+            txtGammer!!.text = "Juegas TU!!"
             block(true)
             listen()
         }else{
+            txtGammer!!.text = "Esperando..."
             block(false)
             dogameOther()
         }
-
     }
 
     fun listen() {
@@ -124,7 +135,7 @@ class MainGame : AppCompatActivity() {
         changeLetter(letter, btn)
         changeColorOwn(btn!!)
         ownGame.add(position)
-        System.out.println(position)
+        System.out.println("Mi Juego -------------->" + position)
         var response = checkWinner(ownGame, "Yo")
         if (response == "Ganaste") {
             block(false)
@@ -154,11 +165,19 @@ class MainGame : AppCompatActivity() {
         var btn : CardView? = null
         when (otherPossition){
             "1,1"-> btn = btn_11
+            "1,2"-> btn = btn_12
+            "1,3"-> btn = btn_13
+            "2,1"-> btn = btn_21
+            "2,2"-> btn = btn_22
+            "2,3"-> btn = btn_23
+            "3,1"-> btn = btn_31
+            "3,2"-> btn = btn_32
+            "3,3"-> btn = btn_33
         }
         btn!!.isEnabled = false
         changeLetter(otherLetter!!, btn)
         changeColorOther(btn!!)
-        System.out.println("-------------->" + otherPossition)
+        System.out.println("Otro Jugador -------------->" + otherPossition)
         var response = checkWinner(otherGame, "Yo")
         if (response == "Ganaste") {
             block(false)

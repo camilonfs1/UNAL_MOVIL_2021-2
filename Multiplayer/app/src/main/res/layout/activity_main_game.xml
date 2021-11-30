@@ -276,28 +276,94 @@
         android:layout_gravity="center"
         android:gravity="bottom"
         android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
-        <Button
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salir"
-            android:layout_weight="1"
-            android:textSize="20dp"
-            android:layout_marginHorizontal="5dp"
-            android:textStyle="bold"
-            android:background="#FF3700B3"
-            android:textColor="#ffffff"
-            android:gravity="center" />
-        <Button
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:text="Puntos Competidor : "
+                android:gravity="right"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txt_other_points"
+                android:layout_width="wrap_content"
+                android:text="0"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Musica"
-            android:layout_weight="1"
-            android:textSize="20dp"
-            android:layout_marginHorizontal="5dp"
-            android:textStyle="bold"
-            android:background="#FF3700B3"
-            android:textColor="#ffffff"
-            android:gravity="center" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:gravity="right"
+                android:text="Tus Puntos : "
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txt_own_points"
+                android:layout_width="wrap_content"
+                android:text="0"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:text="Empates : "
+                android:gravity="right"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txt_tie_points"
+                android:layout_width="wrap_content"
+                android:text="0"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_player"
+                android:layout_width="match_parent"
+                android:text="Juegas TU"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="#651FFF"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salir"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="5dp"
+                android:textStyle="bold"
+                android:background="#FF3700B3"
+                android:textColor="#ffffff"
+                android:gravity="center" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Musica"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="5dp"
+                android:textStyle="bold"
+                android:background="#FF3700B3"
+                android:textColor="#ffffff"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
