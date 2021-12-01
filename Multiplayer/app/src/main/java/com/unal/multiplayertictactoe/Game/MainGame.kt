@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import com.unal.multiplayertictactoe.BackCommunication.BackCommunication
+import com.unal.multiplayertictactoe.BackCommunicationImp.BackCommunication
 import com.unal.multiplayertictactoe.R
 
 class MainGame : AppCompatActivity() {
