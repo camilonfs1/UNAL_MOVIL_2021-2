@@ -1,6 +1,5 @@
 package com.unal.multiplayertictactoe.BackCommunicationImp
 
-import android.widget.Toast
 import com.unal.multiplayertictactoe.Entities.GamesDataCollectionItem
 import com.unal.multiplayertictactoe.Interfaces.GamesService
 import retrofit2.Call
@@ -28,8 +27,14 @@ class BackCommunication {
                 call: Call<List<GamesDataCollectionItem>>,
                 response: Response<List<GamesDataCollectionItem>>
             ) {
-                System.out.println("Peticion OK")
+                val myItem = response.body()
+                if(response?.body() != null){
+                    System.out.println(myItem)
+                }
+
+
             }
+
         })
 
 
