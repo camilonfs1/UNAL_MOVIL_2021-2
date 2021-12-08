@@ -1,8 +1,8 @@
-package com.unal.multiplayertictactoe.Entities
+package com.unal.multiplayertictactoe.BackCommunicationImp.domain.Entities
 
-class GamesDataCollection : ArrayList<GamesDataCollectionItem>()
+import java.io.Serializable
 
-data class GamesDataCollectionItem(
+data class GameItem (
     val __v: Int,
     val _id: String,
     val matrix: String,
@@ -12,5 +12,4 @@ data class GamesDataCollectionItem(
     val status: String,
     val token: String,
     val winner: String
-)
-
+): Serializable

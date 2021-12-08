@@ -8,6 +8,6 @@ router.get('/', tictactoe.GetAll);
 router.post('/create_game', tictactoe.CreateGame);
 router.post('/join_game', tictactoe.JoinGame);
 router.post('/game', tictactoe.Game);
-router.get('/game', tictactoe.GetGame);
+router.post('/getgame', tictactoe.GetGame);
 
 module.exports = router;
