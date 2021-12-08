@@ -276,41 +276,42 @@ class MainGame : AppCompatActivity() {
 
     fun dogameOther(othermatrix:String) {
 
-        System.out.println("1--------------------------------------->"+othermatrix)
-        System.out.println("2--------------------------------------->"+stringMatrix)
+        System.out.println("LLEGA--------------------------------------->"+othermatrix)
+        System.out.println("MIA--------------------------------------->"+stringMatrix)
         if(othermatrix.equals(stringMatrix)){
             System.out.println("Consultando")
             Timer().schedule(5000) {
                 getGame()
             }
-        }else{
+        }else if (!othermatrix.equals(stringMatrix)){
             var otherPossition = stringtomatrix(othermatrix)
             var btn: CardView? = null
-            when (otherPossition) {
-                "1,1" -> btn = btn_11
-                "1,2" -> btn = btn_12
-                "1,3" -> btn = btn_13
-                "2,1" -> btn = btn_21
-                "2,2" -> btn = btn_22
-                "2,3" -> btn = btn_23
-                "3,1" -> btn = btn_31
-                "3,2" -> btn = btn_32
-                "3,3" -> btn = btn_33
-                "" -> btn = null
-            }
-
-            btn!!.isEnabled = false
-            changeLetter(otherLetter!!, btn)
-            changeColorOther(btn!!)
-            System.out.println("Otro Jugador -------------->" + otherPossition)
-            //storage own game
-            otherGame.add(otherPossition)
-            var response = checkWinner(otherGame, "Yo")
-            if (response == "Gano Tu Oponente") {
-                block(false)
-            } else {
-                startGame(1)
-            }
+           if(!otherPossition.equals("")){
+               when (otherPossition) {
+                   "1,1" -> btn = btn_11
+                   "1,2" -> btn = btn_12
+                   "1,3" -> btn = btn_13
+                   "2,1" -> btn = btn_21
+                   "2,2" -> btn = btn_22
+                   "2,3" -> btn = btn_23
+                   "3,1" -> btn = btn_31
+                   "3,2" -> btn = btn_32
+                   "3,3" -> btn = btn_33
+                   "" -> btn = null
+               }
+               btn!!.isEnabled = false
+               changeLetter(otherLetter!!, btn)
+               changeColorOther(btn!!)
+               System.out.println("Otro Jugador -------------->" + otherPossition)
+               //storage own game
+               otherGame.add(otherPossition)
+               var response = checkWinner(otherGame, "Yo")
+               if (response == "Gano Tu Oponente") {
+                   block(false)
+               } else {
+                   startGame(1)
+               }
+           }
         }
     }
 
@@ -412,15 +413,19 @@ class MainGame : AppCompatActivity() {
         val row2: List<String> = lstValues3.get(0).split(",").map { it -> it.trim() }
         val row3: List<String> = lstValues4.get(0).split(",").map { it -> it.trim() }
 
-        System.out.println(row1.get(0)+","+row1.get(1)+","+row1.get(2))
+        System.out.println("0,0-"+row1.get(0)+"  1,0,"+row1.get(1)+" 2,0,"+row1.get(2))
         matrix2[0][0] = Integer.parseInt(row1.get(0))
         matrix2[1][0] = Integer.parseInt(row1.get(1))
         matrix2[2][0] = Integer.parseInt(row1.get(2))
-        System.out.println(row2.get(0)+","+row2.get(1)+","+row2.get(2))
+
+
+        System.out.println("0,1-"+row2.get(0)+"  1,1,"+row2.get(1)+"  2,1,"+row2.get(2))
         matrix2[0][1] = Integer.parseInt(row2.get(0))
         matrix2[1][1] = Integer.parseInt(row2.get(1))
         matrix2[2][1] = Integer.parseInt(row2.get(2))
-        System.out.println(row3.get(0)+","+row3.get(1)+","+row3.get(2))
+
+
+        System.out.println("0,2-"+row3.get(0)+"   1,2,"+row3.get(1)+"  2,2,"+row3.get(2))
         matrix2[0][2] = Integer.parseInt(row3.get(0))
         matrix2[1][2] = Integer.parseInt(row3.get(1))
         matrix2[2][2] = Integer.parseInt(row3.get(2))
@@ -432,8 +437,10 @@ class MainGame : AppCompatActivity() {
         }else{
             number = 1
         }
+        System.out.println("number-->"+number)
         for (i in 0..2) {
             for (j in 0..2) {
+                System.out.println("i-->"+i+"j-->"+j+" matrixn-->"+matrix2[i][j])
                 if (matrix2[i][j] == number &&  matrix[i][j] != matrix2[i][j]) {
                     position = ((i + 1).toString() + "," + (j + 1).toString())
                     System.out.println("position->"+position)
@@ -441,6 +448,9 @@ class MainGame : AppCompatActivity() {
                 }
             }
         }
+
+        display(matrix)
+        System.out.println("position->"+position)
         return position
     }
 
