@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+  >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRUD UNAL"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <EditText
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nombre"
+                />
+            <EditText
+                android:id="@+id/txt_URL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="URL"
+                />
+            <EditText
+                android:id="@+id/txt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Telefono"
+                />
+            <EditText
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email"
+                />
+            <EditText
+                android:id="@+id/txt_products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Productos"
+                />
+            <Spinner
+                android:id="@+id/spin_clasification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/clasification"
+                android:textColor="#4dac9d"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_create"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CREAR"/>
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar"/>
+
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CRUD_SQLite</string>
+    <string-array name="clasification">
+        <item></item>
+        <item>Consultoría</item>
+        <item>Desarrollo a la medida</item>
+        <item>Fábrica de software</item>
+    </string-array>
+</resources>
