@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WebServices</string>
+    <string-array name="clasification">
+        <item></item>
+        <item>Municipio</item>
+        <item>Ha usado aplicaciones?</item>
+        <item>Tipo de empresa</item>
+    </string-array>
+</resources>
